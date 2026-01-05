@@ -7,7 +7,7 @@
     "rewrites": [
         {
             "source": "/favicon.ico",
-            "destination": "https://juicy.vercel.app/favicon.ico"
+            "destination": "https://coming-soon-page-in-vue-js.vercel.app/favicon.ico"
         },
         {
             "source": "/(.*)",
