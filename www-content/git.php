@@ -5,10 +5,8 @@ $fileName = str_replace(
     '',
     $_SERVER['PHP_SELF'] ?? '',
 );
-$date = date('c');
 
-$content = render_view(__DIR__.'/_partials/menu.view.php', ['date' => $date]);
-
+$latestLog = git_latest_log();
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +17,10 @@ $content = render_view(__DIR__.'/_partials/menu.view.php', ['date' => $date]);
     <title>File: <?= $fileName ?></title>
 </head>
 <body>
-    <?= $content . ' content' ?>
+    <?=  file_get_contents(__DIR__.'/_partials/menu.view.php') ?>
     <h3>
         This is the "<?= $fileName ?>" file/path. Go to <a href="/">home</a>
     </h3>
+    <pre><?= json_encode($latestLog, 64|JSON_PRETTY_PRINT) ?></pre>
 </body>
 </html>

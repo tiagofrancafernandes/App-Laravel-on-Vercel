@@ -22,6 +22,7 @@ $uri = trim(ltrim($uri, '/'));
 $filePath = match ($uri) {
     '', '/', 'home', 'index', 'index.php' => CONTENT_PATH . '/index.php',
     'about', 'about.php' => CONTENT_PATH . '/about.php',
+    'latest_log', 'git' => CONTENT_PATH . '/git.php',
     'contact', 'contact.php' => CONTENT_PATH . '/contact.php',
     // 'index', 'index.php' => CONTENT_PATH . '/index.php',
 

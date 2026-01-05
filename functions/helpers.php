@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', __DIR__ . '/..');
+}
+
 if (!function_exists('get_env')) {
     /**
      * get_env function
@@ -104,7 +108,7 @@ if (!function_exists('request_uri')) {
     /**
      * function request_uri
      *
-     * @param tring $defaultValue
+     * @param string $defaultValue
      *
      * @return mixed
      */
@@ -318,5 +322,61 @@ if (!function_exists('die_as_json')) {
         response_as_json($data, 500);
 
         die;
+    }
+}
+
+if (!function_exists('git_latest_log')) {
+    /**
+     * function git_latest_log
+     *
+     * @return array|string
+     */
+    function git_latest_log(?string $key = null): array|string
+    {
+        $headFile = base_path('.git/HEAD');
+        $headLogFile = base_path('.git/logs/HEAD');
+
+        $toReturn = [];
+
+        if (!is_file($headLogFile) || !is_readable($headLogFile)) {
+            return is_null($key) ? $toReturn : '';
+        }
+
+        $headFirstLine = is_file($headFile) && is_readable($headFile) ? trim(fgets(fopen($headFile, 'r'))) : '';
+        $logFirstLine = fgets(fopen($headLogFile, 'r'));
+        $logFirstLine = trim($logFirstLine ?: '');
+        $toReturn['log_line'] = $logFirstLine;
+        $toReturn['head_line'] = $headFirstLine;
+        $toReturn['head'] = str_replace(['ref: refs/heads/', "\n", "\r"], '', $headFirstLine ?: '');
+        $toReturn['branch'] = $toReturn['head'];
+        $toReturn['commit_id'] = trim(explode(' ', $logFirstLine)[1] ?? '');
+        $toReturn['id'] = $toReturn['commit_id'];
+        $toReturn['latest_commit_id'] = explode(' ', $logFirstLine)[1] ?? '';
+        $toReturn['commit'] = trim(explode('commit:', $logFirstLine)[0] ?? '');
+
+        if (is_null($key)) {
+            return $toReturn;
+        }
+
+        return $toReturn[$key] ?? '';
+    }
+}
+
+if (!function_exists('render_view')) {
+    /**
+     * Summary of render_view
+     *
+     * @param string $template
+     * @param array $data
+     * @return string
+     */
+    function render_view(string $template, array $data = []): string
+    {
+        extract($data, EXTR_SKIP);
+
+        ob_start();
+        include $template;
+
+        return ob_get_clean() ?: '';
     }
 }
