@@ -2,8 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "echo vite",
-        "build": "echo vite build",
+        "dev": "vite",
+        "build": "true",
         "vite:dev": "vite",
         "vite:build": "vite build"
     },
