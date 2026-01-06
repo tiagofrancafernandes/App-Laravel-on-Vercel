@@ -1,7 +1,7 @@
 {
     "outputDirectory": "public",
-    "installCommand": "php -i || true",
-    "buildCommand": "php -v || true",
+    "installCommand": "echo 1 || true",
+    "buildCommand": "echo 1 || true",
     "functions": {
         "api/*.php": {
             "runtime": "vercel-php@0.7.4"
