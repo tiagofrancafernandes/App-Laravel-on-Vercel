@@ -23,3 +23,12 @@ Route::get('/db-test', fn () => [
 ]);
 
 Route::get('/libs', fn () => []);
+Route::get('/dev/vars', function () {
+    $request = request();
+
+    return [
+        'server' => $request->input('server') ? $_SERVER ?? [] : [],
+        'configs' => $request->input('config') ? config()->all() : [],
+        'envs' => $request->input('envs') ? array_merge($_ENV ?? [], (array) getenv()) : [],
+    ];
+});
