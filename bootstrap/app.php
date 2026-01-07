@@ -1,5 +1,8 @@
 <?php
 
+$customBootstrap = getenv('CUSTOM_BOOTSTRAP_PATH') ?: null;
+$customBootstrap ??= $_SERVER['CUSTOM_BOOTSTRAP_PATH'] ?? $_ENV['CUSTOM_BOOTSTRAP_PATH'] ?? null;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -14,6 +17,12 @@
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
+
+if ($customBootstrap) {
+    $app->useBootstrapPath(
+        $customBootstrap
+    );
+}
 
 /*
 |--------------------------------------------------------------------------
