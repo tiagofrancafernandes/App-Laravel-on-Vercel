@@ -25,10 +25,11 @@ Route::get('/db-test', fn () => [
 Route::get('/libs', fn () => []);
 Route::get('/dev/vars', function () {
     $request = request();
+    $config = $request->input('config');
 
     return [
         'server' => $request->input('server') ? $_SERVER ?? [] : [],
-        'configs' => $request->input('config') ? config()->all() : [],
+        'config' => is_string($config) ? ( $config === 'all' ? config()->all() : config(trim($config))) : [],
         'envs' => $request->input('envs') ? array_merge($_ENV ?? [], (array) getenv()) : [],
     ];
 });
