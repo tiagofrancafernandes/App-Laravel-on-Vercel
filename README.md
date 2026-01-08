@@ -1,4 +1,4 @@
-# App PHP on [Vercel](https://vercel.com)
+# App PHP/Laravel on [Vercel](https://vercel.com)
 
 <a href="https://vercel.com/new/clone?repository-url=https://github.com/tiagofrancafernandes/App-Laravel-on-Vercel/tree/master"><img src="https://vercel.com/button"></a>
 

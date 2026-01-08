@@ -18,7 +18,7 @@
         }
     ],
     "env": {
-        "APP_NAME": "Vercel Laravel",
+        "APP_NAME": "PHP/Laravel on Vercel",
         "APP_ENV": "production",
         "APP_DEBUG": "true",
         "APP_URL": "https://app-laravel-on-vercel.vercel.app",
