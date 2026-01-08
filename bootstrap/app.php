@@ -1,5 +1,17 @@
 <?php
 
+$isOnLambda = str_starts_with(env('LAMBDA_TASK_ROOT', ''), '/var/task')
+        || env('AWS_LAMBDA_FUNCTION_VERSION')
+        || env('AWS_LAMBDA_EXEC_WRAPPER')
+        || env('AWS_LAMBDA_RUNTIME_API')
+        || env('AWS_LAMBDA_FUNCTION_NAME') || false;
+
+if ($isOnLambda) {
+    $_SERVER['CUSTOM_BOOTSTRAP_PATH'] ??= $_ENV['CUSTOM_BOOTSTRAP_PATH'] ?? '/tmp';
+
+    $_ENV['CUSTOM_BOOTSTRAP_PATH'] ??= $_SERVER['CUSTOM_BOOTSTRAP_PATH'] ?? '/tmp';
+}
+
 $customBootstrap = getenv('CUSTOM_BOOTSTRAP_PATH') ?: null;
 $customBootstrap ??= $_SERVER['CUSTOM_BOOTSTRAP_PATH'] ?? $_ENV['CUSTOM_BOOTSTRAP_PATH'] ?? null;
 

@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('welcome'));
+Route::get('/', fn () => ['message' => 'Hello, World!', 'now' => now()]);
+Route::get('/api', fn () => ['message' => 'Hello, World!', 'now' => now()]);
+Route::get('/view', fn () => view('welcome'));
 
 Route::get('/db-test', fn () => [
     'database_connection' => config('database.default'),
@@ -29,7 +31,7 @@ Route::get('/dev/vars', function () {
 
     return [
         'server' => $request->input('server') ? $_SERVER ?? [] : [],
-        'config' => is_string($config) ? ( $config === 'all' ? config()->all() : config(trim($config))) : [],
+        'config' => is_string($config) ? ($config === 'all' ? config()->all() : config(trim($config))) : [],
         'envs' => $request->input('envs') ? array_merge($_ENV ?? [], (array) getenv()) : [],
     ];
 });
